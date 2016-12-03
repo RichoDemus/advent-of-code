@@ -1,0 +1,21 @@
+apply plugin: 'kotlin'
+
+defaultTasks 'build'
+
+dependencies {
+    compile 'org.jetbrains.kotlin:kotlin-runtime:1.0.5'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.5'
+}
+
+repositories {
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.5'
+    }
+}
