@@ -1,8 +1,7 @@
 package com.richodemus.advent_of_code.two_thousand_sixteen.day1_taxicab
 
 
-import java.io.File
-import java.net.URL
+import com.richodemus.advent_of_code.two_thousand_sixteen.toFile
 
 fun main(args: Array<String>) {
     val directions = readDirections()
@@ -16,6 +15,7 @@ fun main(args: Array<String>) {
             position = position.move(direction, 1)
             if (previousPositions.contains(position) && !foundPrevLocation) {
                 println("Previously visited point: ${position.toAnswer()}")
+                assert(position.toAnswer() == 116)
                 foundPrevLocation = true
             }
             previousPositions.add(position)
@@ -23,15 +23,14 @@ fun main(args: Array<String>) {
     }
 
     println("Answer: ${position.toAnswer()}")
+    assert(position.toAnswer() == 241)
 }
 
-fun readDirections() = ClassLoader.getSystemClassLoader().getResource("day1/directions.txt").toFile().readText().toDirections()
+private fun readDirections() = "day1/directions.txt".toFile().readText().toDirections()
 
-fun URL.toFile(): File = File(this.file)
+private fun String.toDirections() = this.split(",").map(String::trim).map { Action(it) }
 
-fun String.toDirections() = this.split(",").map(String::trim).map { Action(it) }
-
-data class Position(val x: Int = 0, val y: Int = 0) {
+private data class Position(val x: Int = 0, val y: Int = 0) {
     fun move(direction: Direction, steps: Int): Position {
         return when (direction) {
             Direction.NORTH -> Position(x, y + steps)
@@ -48,17 +47,17 @@ data class Position(val x: Int = 0, val y: Int = 0) {
     }
 }
 
-data class Action(val turn: Turn, val steps: Int) {
+private data class Action(val turn: Turn, val steps: Int) {
     constructor(raw: String) : this(raw[0].toTurn(), raw.substring(1).toInt())
 }
 
-fun Char.toTurn() = if ('R' == this) Turn.RIGHT else Turn.LEFT
+private fun Char.toTurn() = if ('R' == this) Turn.RIGHT else Turn.LEFT
 
-enum class Turn {
+private enum class Turn {
     RIGHT, LEFT
 }
 
-enum class Direction {
+private enum class Direction {
     NORTH {
         override fun turn(direction: Turn): Direction = if (direction == Turn.RIGHT) EAST else WEST
     },
