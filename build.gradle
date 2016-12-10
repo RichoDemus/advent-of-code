@@ -5,6 +5,7 @@ defaultTasks 'build'
 dependencies {
     compile 'org.jetbrains.kotlin:kotlin-runtime:1.0.5'
     compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.5'
+    compile 'org.assertj:assertj-core:3.6.1'
 }
 
 repositories {
